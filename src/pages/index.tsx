@@ -1,10 +1,30 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import { Inter } from 'next/font/google';
-// import  '@/.module.css';
+import HomePage from '@/containers/HomePage';
+import { getAllPosts } from '@/data/posts/get-all-posts';
+import { GetStaticProps } from 'next';
+import { PostData } from '../domain/posts/post';
 
-const inter = Inter({ subsets: ['latin'] });
+// const getPosts = async (): Promise<PostData[]> => {
+//   const url = '';
+//   const posts = await fetch(url);
+//   const jsonPosts = await posts.json();
+//   return jsonPosts.data;
+// };
 
-export default function Home() {
-  return <h1>Hi</h1>;
+export type HomeProps = {
+  posts: PostData[];
+};
+
+export default function Home({ posts }: HomeProps) {
+  return <HomePage posts={posts} />;
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const posts = await getAllPosts(
+    'sort=id:desc&pagination[start]=0&pagination[limit]=30',
+  );
+  // ex de pegando um id: https://floating-tor-18461.herokuapp.com/api/posts?populate=deep&sort=id:desc&filters[id][$in][0]=5
+  return {
+    props: { posts },
+    // revalidate: 5,
+  };
+};
