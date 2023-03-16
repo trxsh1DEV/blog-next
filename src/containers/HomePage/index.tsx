@@ -4,6 +4,8 @@ import { MainContainer } from '@/components/MainContainer';
 import { PostCard } from '@/components/PostCard';
 import { PostData } from '@/domain/posts/post';
 import { Container } from './styles';
+import Head from 'next/head';
+import { SITE_NAME } from '@/config/app-config';
 
 export type HomePageProps = {
   posts: PostData[];
@@ -12,6 +14,13 @@ export type HomePageProps = {
 export default function HomePage({ posts }: HomePageProps) {
   return (
     <>
+      <Head>
+        <title>{SITE_NAME}</title>
+        <meta
+          name='description'
+          content='Blog de tecnologia, falamos sobre desenvolvimento e tudo que está acontecendo no mundo tech #vemsertech'
+        />
+      </Head>
       <Header />
       <MainContainer>
         <Container>

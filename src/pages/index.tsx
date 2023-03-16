@@ -20,11 +20,11 @@ export default function Home({ posts }: HomeProps) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllPosts(
-    'sort=id:desc&pagination[start]=0&pagination[limit]=30',
+    'sort=id:desc&pagination[start]=0&pagination[limit]=6',
   );
   // ex de pegando um id: https://floating-tor-18461.herokuapp.com/api/posts?populate=deep&sort=id:desc&filters[id][$in][0]=5
   return {
     props: { posts },
-    // revalidate: 5,
+    // revalidate: 5, // n precisamos att o blog de x em x tempo
   };
 };
