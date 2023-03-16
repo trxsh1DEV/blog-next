@@ -33,8 +33,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   // Example: pegando nome das categorias
-  // filters[categorie][name][$contains]=Desenvolvimento
   const urlQuery = `sort=id:desc&pagination[limit]=20&filters[categorie][name][$eqi]=${ctx.params?.category}`;
+  // filters[categorie][name][$contains]=Desenvolvimento
   const posts = await getAllPosts(urlQuery);
   return {
     props: { posts },
