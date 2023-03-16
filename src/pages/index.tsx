@@ -20,7 +20,7 @@ export default function Home({ posts }: HomeProps) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllPosts(
-    'sort=id:desc&pagination[start]=0&pagination[limit]=6',
+    'sort=id:desc&pagination[start]=0&pagination[limit]=20',
   );
   // ex de pegando um id: https://floating-tor-18461.herokuapp.com/api/posts?populate=deep&sort=id:desc&filters[id][$in][0]=5
   return {
