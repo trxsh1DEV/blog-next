@@ -1,10 +1,3 @@
-// /** @type {import('next').NextConfig} */
-// const nextConfig = {
-//   reactStrictMode: true,
-// };
-
-// module.exports = nextConfig;
-module.exports = {
-  // Target must be serverless
-  target: 'serverless',
-};
+/* eslint-disable no-undef */ /** @type {import('next').NextConfig} */
+const nextConfig = { reactStrictMode: true };
+module.exports = nextConfig;
