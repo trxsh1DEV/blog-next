@@ -3,6 +3,4 @@ const nextConfig = {
   reactStrictMode: true,
 };
 
-export default {
-  target: 'static',
-};
+module.exports = nextConfig;
