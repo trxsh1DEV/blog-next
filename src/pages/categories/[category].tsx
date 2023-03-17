@@ -6,7 +6,7 @@ import { PostData } from '../../domain/posts/post';
 
 export type CategoryProps = {
   posts: PostData[];
-  category?: string;
+  category: string;
 };
 
 export default function Category({ posts, category }: CategoryProps) {
@@ -35,8 +35,9 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   // Example: pegando nome das categorias
   // filters[categorie][name][$contains]=Desenvolvimento
   const urlQuery = `sort=id:desc&pagination[limit]=20&filters[categorie][name][$eqi]=${ctx.params?.category}`;
-  const posts = await getAllPosts(urlQuery);
+  const posts = await getAllPosts(urlQuery.toLowerCase());
+  // console.log(urlQuery);
   return {
-    props: { posts },
+    props: { posts, category: ctx.params?.category },
   };
 };
