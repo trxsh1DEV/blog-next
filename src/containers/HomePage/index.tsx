@@ -3,11 +3,12 @@ import { Header } from '@/components/Header';
 import { MainContainer } from '@/components/MainContainer';
 import { PostCard } from '@/components/PostCard';
 import { PostData } from '@/domain/posts/post';
-import { Category, Container } from './styles';
+import { AllPostsLinks, Category, Container } from './styles';
 import Head from 'next/head';
 import { SITE_NAME } from '@/config/app-config';
 import { PaginationData } from '@/domain/posts/pagination';
 import { Pagination } from '@/components/Pagination';
+import Link from 'next/link';
 
 export type HomePageProps = {
   posts: PostData[];
@@ -20,10 +21,15 @@ export default function HomePage({
   category,
   pagination,
 }: HomePageProps) {
+  const categoryCheck = category ? `${category} - ${SITE_NAME}` : SITE_NAME;
+  const pageNumberCheck = pagination?.nextPage
+    ? ` - Página ${pagination.nextPage - 1}`
+    : '';
+  // console.log(categoryCheck, pageNumberCheck);
   return (
     <>
       <Head>
-        <title>{category ? `${category} - ${SITE_NAME}` : SITE_NAME}</title>
+        <title>{`${categoryCheck} ${pageNumberCheck}`}</title>
         <meta
           name='description'
           content='Blog de tecnologia, falamos sobre desenvolvimento e tudo que está acontecendo no mundo tech #vemsertech'
@@ -44,6 +50,11 @@ export default function HomePage({
           ))}
         </Container>
         <Pagination {...pagination} />
+        {!pagination?.nextPage && (
+          <Link href='/post/page/[...param]' as='/post/page/1' passHref>
+            <AllPostsLinks>Ver todos os posts</AllPostsLinks>
+          </Link>
+        )}
       </MainContainer>
       <Footer />
     </>

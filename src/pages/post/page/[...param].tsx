@@ -30,7 +30,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  // console.log(ctx.params);
   const page = Number(ctx.params?.param?.[0]);
   const category = ctx.params?.param?.[1] || '';
 
@@ -44,8 +43,10 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     ? `&filters[categorie][name][$eqi]=${category}`
     : '';
 
-  const numberOfPosts = Number(await countAllPosts());
-  // if (startFrom === 0) postsPerPage = 10;
+  const asd = await getAllPosts(`filters[categorie][name][$eqi]=${category}`);
+  const numberOfPosts =
+    asd.length <= 0 ? Number(await countAllPosts()) : asd.length;
+  // console.log(numberOfPosts);
   const urlQuery = `sort=id:desc&pagination[start]=${startFrom}&pagination[limit]=${postsPerPage}${categoryQuery}`;
   const posts = await getAllPosts(urlQuery);
 

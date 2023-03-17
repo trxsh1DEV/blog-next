@@ -17,7 +17,7 @@ export const Pagination = ({
   const previousLink = `/post/page/${previousPage}/${categoryName}`;
   const hasNextPage =
     Number(nextPage) * Number(postsPerPage) <
-    Number(postsPerPage) + (Number(numberOfPosts) - 2);
+    Number(postsPerPage) + Number(numberOfPosts);
   const hasPreviousPage = Number(previousPage) >= 1;
 
   return (

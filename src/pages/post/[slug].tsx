@@ -5,12 +5,16 @@ import { getPost } from '@/data/posts/get-post';
 import { PostData } from '@/domain/posts/post';
 
 import { GetStaticPaths, GetStaticProps } from 'next';
+import Error from 'next/error';
 
 export type DynamicPostProps = {
   post: PostData;
 };
 
 const DynamicPost = ({ post }: DynamicPostProps) => {
+  if (!post?.attributes?.title) {
+    return <Error statusCode={404} />;
+  }
   return <Post post={post} />;
 };
 
@@ -35,8 +39,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (ctx) => {
   // if (!ctx.params) return;
   const posts = await getPost(ctx.params?.slug);
+  const post = posts.length > 0 ? posts[0] : {};
 
   return {
-    props: { post: posts[0] },
+    props: { post: post },
   };
 };
